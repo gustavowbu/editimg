@@ -1,3 +1,7 @@
+# editimg
+# Copyright (c) 2025 Gustavo de Melo Timbó
+# Licensed under the MIT License
+
 from .pngtools import encode, decode, save_file
 
 class Image():
