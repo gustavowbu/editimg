@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="editimg",
-    version="0.1",
+    version="0.1.1",
     packages=find_packages(),
     install_requires=[],
     author="Gustavo",
@@ -16,5 +16,5 @@ setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    python_requires=">=3.6",
+    python_requires=">=3.9",
 )

@@ -88,7 +88,7 @@ class Image():
         file_content = encode(self.image_data, self.chunks)
         save_file(file_path, file_content)
 
-def blend_rgba(color_bg: tuple[int,int,int,int], color_fg: tuple[int,int,int,int]) -> tuple[int,int,int,int]:
+def blend_rgba(color_bg: tuple[int, int, int, int], color_fg: tuple[int, int, int, int]) -> tuple[int, int, int, int]:
     if color_fg[3] == 255:
         return color_fg
 
@@ -117,3 +117,30 @@ def blend_rgba(color_bg: tuple[int,int,int,int], color_fg: tuple[int,int,int,int
     alpha_result = int(round(alpha_result * 255))
 
     return (red_result, green_result, blue_result, alpha_result)
+
+def rgb_to_hexadecimal(rgb: tuple[int, int, int], nohashtag = False):
+    mappings = {0: "0", 1: "1", 2: "2", 3: "3", 4: "4", 5: "5", 6: "6", 7: "7", 8: "8", 9: "9", 10: "A", 11: "B", 12: "C", 13: "D", 14: "E", 15: "F"}
+    hexadecimal = "" if nohashtag else "#"
+    for color in rgb:
+        digit1, digit2 = divmod(color, 16)
+        digit1 = mappings[digit1]
+        digit2 = mappings[digit2]
+        hexadecimal += digit1 + digit2
+    return hexadecimal
+
+def hexadecimal_to_rgb(hexadecimal: str):
+    mappings = {"0": 0, "1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "A": 10, "B": 11, "C": 12, "D": 13, "E": 14, "F": 15}
+    hexadecimal = hexadecimal[1:] if hexadecimal[0] == "#" else hexadecimal
+    rgb = []
+    first_digit = True
+    digit = 0
+    for letter in hexadecimal:
+        if first_digit:
+            digit += mappings[letter] * 16
+            first_digit = False
+        else:
+            digit += mappings[letter]
+            rgb.append(digit)
+            digit = 0
+            first_digit = True
+    return tuple(rgb)
